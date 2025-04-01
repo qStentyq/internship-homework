@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap');
+
+:root {
+	/* Цветовая схема */
+	--color-primary: #2d3250;
+	--color-accent: #7c73e6;
+	--color-background: #f5f5f7;
+	--color-text: #1a1b25;
+	--color-text-light: #666;
+	--color-border: rgba(0, 0, 0, 0.1);
+
+	/* Типографика */
+	--font-primary: 'Inter', system-ui, -apple-system, sans-serif;
+	--font-headings: 'Poppins', sans-serif;
+	--font-size-h1: 2.5rem;
+	--font-size-h2: 2rem;
+	--font-size-h3: 1.75rem;
+	--font-size-body: 1rem;
+	--font-size-small: 0.875rem;
+
+	/* Тени */
+	--shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+	--shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+	--shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+
+	/* Анимации */
+	--transition-fast: 0.2s ease-in-out;
+	--transition-normal: 0.3s ease-in-out;
+
+	/* Закругления */
+	--radius-sm: 8px;
+	--radius-md: 12px;
+	--radius-lg: 16px;
+
+	/* Градиенты */
+	--gradient-primary: linear-gradient(
+		135deg,
+		var(--color-primary),
+		var(--color-accent)
+	);
+}
