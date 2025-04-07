@@ -2,7 +2,7 @@ const fs = require('fs');
 const { execSync } = require('child_process');
 const path = require('path');
 
-const projects = ['converter'];
+const projects = ['converter', 'react-tasks/task1', 'react-tasks/task-2', 'react-tasks/task-3', 'react-tasks/task-4', 'react-tasks/tasks-5'];
 const deployDir = 'docs';
 
 function log(msg) {
@@ -32,6 +32,20 @@ projects.forEach((proj) => {
 });
 
 log('✅ All projects built and copied to /docs/');
+
+// ✅ Авто-коммит и пуш
+try {
+  execSync('git add docs', { stdio: 'inherit' });
+  execSync(`git commit -m "📦 Auto-build projects on ${new Date().toISOString()}"`, {
+    stdio: 'inherit',
+  });
+  execSync('git push', { stdio: 'inherit' });
+  log('🚀 Pushed to GitHub!');
+} catch (err) {
+  log('⚠️ Git push failed (maybe nothing changed?)');
+}
+
+// -------------------
 
 function copyDir(src, dest) {
   if (!fs.existsSync(src)) return;
