@@ -2,7 +2,7 @@ const fs = require('fs');
 const { execSync } = require('child_process');
 const path = require('path');
 
-const projects = ['converter', 'react-tasks/task1', 'react-tasks/task-2', 'react-tasks/task-3', 'react-tasks/task-4'];
+const projects = ['react-tasks/task-5'];
 const deployDir = 'docs';
 
 function log(msg) {
@@ -35,7 +35,7 @@ log('✅ All projects built and copied to /docs/');
 
 // ✅ Авто-коммит и пуш
 try {
-  execSync('git add docs', { stdio: 'inherit' });
+  execSync('git add .', { stdio: 'inherit' });
   execSync(`git commit -m "📦 Auto-build projects on ${new Date().toISOString()}"`, {
     stdio: 'inherit',
   });
