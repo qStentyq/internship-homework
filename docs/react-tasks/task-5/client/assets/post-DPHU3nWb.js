@@ -1,0 +1,1 @@
+import{w as o}from"./with-props-D3AO8slx.js";import{l as s}from"./chunk-KNED5TY2-BWNdqSdz.js";const i=o(function({loaderData:t}){return s.jsxs("div",{children:[s.jsxs("p",{children:["Post id: ",t.postId]}),s.jsx("button",{className:"mt-4 text-blue-500 hover:underline",children:s.jsx("a",{href:"/posts",children:"Back to Posts"})})]})});export{i as default};
