@@ -4,7 +4,7 @@ const path = require('path');
 
 
 //'converter', 'react-tasks/task1', 'react-tasks/task-2', 'react-tasks/task-3', 'react-tasks/task-4',
-const projects = ['react-tasks/task-5'];
+const projects = ['react-tasks/task-6'];
 const deployDir = 'docs';
 
 function log(msg) {
