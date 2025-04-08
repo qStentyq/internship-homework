@@ -18,7 +18,7 @@ fs.mkdirSync(deployDir);
 projects.forEach((proj) => {
   const projPath = path.join(__dirname, proj);
   const distPath = path.join(projPath, 'dist') || '';
-  const buildPath = path.join(projPath, 'build') || ''
+  const buildPath = path.join(projPath, 'build\client') || ''
   log('Dist path:', distPath);
   log('Build path:', buildPath);
   if(!distPath && !buildPath) {

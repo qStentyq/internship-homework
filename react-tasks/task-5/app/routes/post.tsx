@@ -1,12 +1,12 @@
 import React from 'react'
 import type { Route } from './+types/post'
 
-export async function loader({ params }: { params: Route.LoaderArgs }) {
-    //@ts-ignore
+export async function clientLoader({ params }: { params: Route.ClientLoaderArgs }) {
+  //@ts-ignore
     const postId = params.postId
     return {postId}; }
 
-export async function action({ params }: { params: Route.ActionArgs }) {}
+export async function clientAction({ }: {  }) {}
 
 export default function Post({loaderData}: {loaderData: Route.ComponentProps}) {
   return (
