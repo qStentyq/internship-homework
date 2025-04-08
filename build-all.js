@@ -17,7 +17,8 @@ fs.mkdirSync(deployDir);
 
 projects.forEach((proj) => {
   const projPath = path.join(__dirname, proj);
-  const distPath = path.join(projPath, 'dist');
+  const distPath = path.join(projPath, 'dist') | '';
+  const buildPath = path.join(projPath, 'build') | ''
   const targetPath = path.join(__dirname, deployDir, proj);
 
   log(`📦 Building ${proj}...`);
@@ -25,10 +26,20 @@ projects.forEach((proj) => {
   execSync('npm install', { cwd: projPath, stdio: 'inherit' });
   execSync('npm run build', { cwd: projPath, stdio: 'inherit' });
 
-  log(`📁 Copying ${distPath} → ${targetPath}`);
-  fs.mkdirSync(targetPath, { recursive: true });
+  if(proj === 'react-tasks/task-5') {
+    log(`📁 Copying ${buildPath} → ${targetPath}`);
+    fs.mkdirSync(targetPath, { recursive: true });
+    
+    copyDir(buildPath, targetPath);
+  }
+  else {
+    log(`📁 Copying ${distPath} → ${targetPath}`);
+    fs.mkdirSync(targetPath, { recursive: true });
+    
+    copyDir(distPath, targetPath);
+    
+  }
 
-  copyDir(distPath, targetPath);
 });
 
 log('✅ All projects built and copied to /docs/');
@@ -36,7 +47,7 @@ log('✅ All projects built and copied to /docs/');
 // ✅ Авто-коммит и пуш
 try {
   execSync('git add .', { stdio: 'inherit' });
-  execSync(`git commit -m "📦 Auto-build projects on ${new Date().toISOString()}"`, {
+  execSync(`git commit -m "📦 Build for deploy to Github Pages"`, {
     stdio: 'inherit',
   });
   execSync('git push', { stdio: 'inherit' });
