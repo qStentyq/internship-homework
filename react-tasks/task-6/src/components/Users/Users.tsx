@@ -37,7 +37,14 @@ useEffect(() => {
         setUsers(data)
         // setLoading(false)
     }
-    fetchUsers()
+    try {
+
+        fetchUsers()
+    }
+    catch(error) {
+        console.error('Error fetching users:', error)
+
+    }
 }
 , [])
   return (
