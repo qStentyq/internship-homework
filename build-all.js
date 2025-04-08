@@ -2,7 +2,9 @@ const fs = require('fs');
 const { execSync } = require('child_process');
 const path = require('path');
 
-const projects = ['converter', 'react-tasks/task1', 'react-tasks/task-2', 'react-tasks/task-3', 'react-tasks/task-4', 'react-tasks/task-5'];
+
+//'converter', 'react-tasks/task1', 'react-tasks/task-2', 'react-tasks/task-3', 'react-tasks/task-4',
+const projects = ['react-tasks/task-5'];
 const deployDir = 'docs';
 
 function log(msg) {
@@ -10,10 +12,10 @@ function log(msg) {
 }
 
 // Очистка docs
-if (fs.existsSync(deployDir)) {
-  fs.rmSync(deployDir, { recursive: true });
-}
-fs.mkdirSync(deployDir);
+// if (fs.existsSync(deployDir)) {
+//   fs.rmSync(deployDir, { recursive: true });
+// }
+// fs.mkdirSync(deployDir);
 
 projects.forEach((proj) => {
   const projPath = path.join(__dirname, proj);
