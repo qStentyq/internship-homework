@@ -4,18 +4,18 @@ const path = require('path');
 
 
 //'converter', 'react-tasks/task1', 'react-tasks/task-2', 'react-tasks/task-3', 'react-tasks/task-4',
-const projects = ['react-tasks/task-6'];
+const projects = ['converter', 'react-tasks/task1', 'react-tasks/task-2', 'react-tasks/task-3', 'react-tasks/task-4', ,'react-tasks/task-5','react-tasks/task-6'];
 const deployDir = 'docs';
 
 function log(msg) {
   console.log(`\x1b[36m${msg}\x1b[0m`);
 }
 
-// Очистка docs
-// if (fs.existsSync(deployDir)) {
-//   fs.rmSync(deployDir, { recursive: true });
-// }
-// fs.mkdirSync(deployDir);
+//Очистка docs
+if (fs.existsSync(deployDir)) {
+  fs.rmSync(deployDir, { recursive: true });
+}
+fs.mkdirSync(deployDir);
 
 projects.forEach((proj) => {
   const projPath = path.join(__dirname, proj);
