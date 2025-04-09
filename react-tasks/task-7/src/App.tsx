@@ -3,8 +3,11 @@ import React, {useState,useMemo, useCallback} from 'react'
 import './App.css'
 
 
+const LowCount = React.lazy(() => import('./components/LowCount/LowCount'))
+import { Suspense } from 'react'
+
 //Button component, re-renders even with memo
-const Button = React.memo(({ onClick, name }: { onClick: () => void , name : string}) => {
+export const Button = React.memo(({ onClick, name }: { onClick: () => void , name : string}) => {
   console.log(`Button is re-rendered at ${new Date().toLocaleTimeString()}`);
   return <button onClick={onClick}>{name}</button>;
 });
@@ -45,9 +48,11 @@ function App() {
     <h1> Memoized component:</h1>
     <MemoizedComponent heavyArray={array} />
     <h2> Memoized component is not re-rendering even when parent counter does</h2>
+    <Suspense fallback={<h1>Loading...</h1>}>{count < 0 ? <LowCount/> : <> 
     <Button onClick={buttonHandler} name = {'useMemo'} />
     <Button onClick={buttonHandler2}  name = {'useCallback'}/>
-
+    </>}
+    </Suspense>
    
   </>)
 }
