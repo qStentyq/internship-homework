@@ -17,7 +17,7 @@ export default function Posts() {
               vehicula, lorem non tincidunt tincidunt, justo nisi facilisis erat,
               at tincidunt lorem nulla vel nisi...
             </p>
-           <a href= {`/posts/${index + 1}`}>
+           <a href= {`/internship-homework/react-tasks/task-5/posts/${index + 1}`}>
            <button className="mt-4 text-blue-500 hover:underline">
               Read More
             </button>
@@ -27,7 +27,7 @@ export default function Posts() {
       </div>
       <div className="mt-8 text-center">
         <a
-          href="/"
+          href="/internship-homework/react-tasks/task-5/"
           className="px-4 py-2 bg-pink-500 text-white rounded hover:bg-pink-600 transition"
         >
           Back to Home Page
