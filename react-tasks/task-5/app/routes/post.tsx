@@ -15,7 +15,7 @@ export default function Post({loaderData}: {loaderData: Route.ComponentProps}) {
         //@ts-ignore
         loaderData.postId}</p>
         <button className="mt-4 text-blue-500 hover:underline">
-            <a href="/posts">Back to Posts</a>
+            <a href="/internship-homework/react-tasks/task-5/posts">Back to Posts</a>
         </button>
     </div>
   )

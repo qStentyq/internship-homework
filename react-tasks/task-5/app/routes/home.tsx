@@ -1,4 +1,5 @@
 import type { Route } from "./+types/home";
+import {Link} from "react-router-dom"
 
 
 export function meta({}: Route.MetaArgs) {
@@ -15,15 +16,15 @@ export default function Home() {
      In this app we gonna learn how to use react-router. This app has 3 pages:</p>
       <ul>
         <li>
-            <a href="/about" className="text-green-500 hover:underline">About</a> - In this section you can find information about me..
+            <Link to="/internship-homework/react-tasks/task-5/about" className="text-green-500 hover:underline">About</Link> - In this section you can find information about me..
           and some contacts too
         </li>
         <li>
-          <a href="/posts" className="text-purple-500 hover:underline">Posts</a> - This section has several posts to demonstrate 
+          <Link to="/internship-homework/react-tasks/task-5/posts" className="text-purple-500 hover:underline">Posts</Link> - This section has several posts to demonstrate 
           how routing by id works
         </li>
         <li>
-          <a href="/" className="text-blue-500 hover:underline">Home</a> - This is a home page, a page where you read this text. 
+          <Link to="/internship-homework/react-tasks/task-5/" className="text-blue-500 hover:underline">Home</Link> - This is a home page, a page where you read this text. 
           If you click the link, your page will be reloaded and you will see this text again.
         </li> 
       </ul>
