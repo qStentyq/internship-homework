@@ -10,7 +10,7 @@ import Todos from './components/Todo/Todos.tsx'
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <div className="App">
-    <BrowserRouter>
+    <BrowserRouter basename='/internship-homework/react-tasks/task-8/'>
     <Routes>
       <Route index element={<Home />} />
       <Route path="/todos" element={<Todos/>}/>
