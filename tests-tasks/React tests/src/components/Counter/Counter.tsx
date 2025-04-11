@@ -1,4 +1,5 @@
 import React from 'react'
+import CounterChild from '../CounterChild/CounterChild'
 
 export default function Counter({initialVal = 0}: {initialVal?: number}) {
     const [count, setCount] = React.useState(initialVal)
@@ -12,6 +13,7 @@ export default function Counter({initialVal = 0}: {initialVal?: number}) {
         <button onClick={increment}>Increment</button>
         <button onClick={decrement}>Decrement</button>
         <button onClick={reset}>Reset</button>
+        <CounterChild/>
     </div>
   )
 }
