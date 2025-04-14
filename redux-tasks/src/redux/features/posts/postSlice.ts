@@ -1,5 +1,5 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { RootState } from '../../store'
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { RootState } from '../../store/store'
 
 
 const POST_URL = 'https://jsonplaceholder.typicode.com/posts'
@@ -25,12 +25,12 @@ export interface Posts {
 
 export interface Post {
     userId: number,
-    id: number,
+    id?: number,
     title: string,
     body: string
 }
 
-const initialState: Posts = {
+export const initialState: Posts = {
   posts: [],
   status: 'idle',
   error: null
@@ -40,7 +40,12 @@ export const postSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
-    
+    addPost: (state, action: PayloadAction<Post>) => {
+      return {
+        ...state,
+        posts: [...state.posts, action.payload]
+      };
+    }
   },
   extraReducers: (builder) => {
     // Add reducers for additional action types here, and handle loading state as needed
@@ -71,6 +76,10 @@ export const postSlice = createSlice({
 export const selectAllPosts = (state: RootState) => state.posts.posts
 export const getPostsStatus = (state: RootState) => state.posts.status
 export const getPostsError = (state: RootState) => state.posts.error
+//selector for posts longer than 200 chars
+export const getLongPosts = (state: RootState) =>  state.posts.posts.filter((post) => post.body.length > 200)
+
 
 
 export default postSlice.reducer
+export const {addPost} = postSlice.actions

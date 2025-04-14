@@ -8,8 +8,8 @@ Task 3 - Many react tasks - (8/9)
 
 Task 4 - Jest/React Library tasks - done
 
-Task 5 - Redux/RTK Tasks - (2/3)
+Task 5 - Redux/RTK Tasks - done
 
-Task 6 - Angular Tasks - x
+Task 6 - Angular Tasks - 3/5
 
 
