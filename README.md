@@ -1,4 +1,4 @@
-# Endava intership homework
+# Endava internship homework
 
 Task 1 - Creation of convertor using JS + React- done
 

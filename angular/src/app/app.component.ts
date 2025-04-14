@@ -1,4 +1,6 @@
-import {Component} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { userService } from './users.service';
+import { User } from './users.service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +11,7 @@ import {Component} from '@angular/core';
       <h1>Profiles data: </h1>
       @for (user of users; track user; let i = $index) {
   
-      <h2>Name: <span contentEditable="true">{{user.name}}</span>, Email: {{user.email}}, age {{user.age}}</h2>
+      <h2>Name: <span contentEditable="true">{{user.name}}</span>, Email: {{user.email}}, age {{user.age || 'N/A'}}</h2>
       <button (click)="increaseAge(i)">Increase age</button>
       }
     }
@@ -31,29 +33,42 @@ import {Component} from '@angular/core';
       color: black;
     }
   `]
-
 })
-export class UserProfile {
-  users =[{name: 'Vladimir', email: 'Vladimir.Perepelita@endava.com', age: 22},
-    {name: 'Alex', email: 'Alex.Joski@endava.com', age: 20},
-    {name: 'Cristina', email: 'Cristina.Seventinova@endava.com', age: 21},
-  ]
-  isVisible = true
-  buttonCounter = 0
+export class UserProfile implements OnInit {
+  users: User[] = [];
+  isVisible = true;
+  buttonCounter = 0;
 
-  toggleVis() {
-    this.isVisible = !this.isVisible
-    this.buttonCounter++
+  constructor(private userServiceComponent: userService) {}
+
+  ngOnInit() {
+    this.userServiceComponent.getUsers().subscribe(
+      (data: User[]) => {
+        this.users = data.map(user => ({
+          ...user,
+          age: user.age || Math.floor(Math.random() * 30) + 20 // Adding random age since the API doesn't provide ages
+        }));
+      },
+      error => {
+        console.error('Error fetching users:', error);
+      }
+    );
   }
 
-  increaseAge(index:number) {
-    this.users[index].age++
-    this.buttonCounter++
+  toggleVis() {
+    this.isVisible = !this.isVisible;
+    this.buttonCounter++;
+  }
 
+  increaseAge(index: number) {
+    if (!this.users[index].age) {
+      this.users[index].age = 18;
+    }
+    this.users[index].age!++;
+    this.buttonCounter++;
   }
 
   resetCount() {
-    this.buttonCounter = 0
+    this.buttonCounter = 0;
   }
-
 }
