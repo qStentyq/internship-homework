@@ -31,7 +31,7 @@ export default function About() {
       </div>
       <div className="mt-4">
         <a
-          href="/"
+          href="/internship-homework/react-tasks/task-5/"
           className="px-4 py-2 bg-pink-500 text-white rounded hover:bg-pink-600 transition"
         >
           Back to Home Page
