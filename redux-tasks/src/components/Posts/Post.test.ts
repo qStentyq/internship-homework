@@ -1,4 +1,4 @@
-import postReducer, { addPost, fetchPosts, initialState } from '../../redux/features/posts/postSlice';
+import postReducer, { addPost, fetchPosts, initialState, Post } from '../../redux/features/posts/postSlice';
 import { describe, it, expect } from 'vitest';
 
 
@@ -7,7 +7,7 @@ describe('postSlice', () => {
 
 
   it('should handle addPost', () => {
-    const newPost = {
+    const newPost : Post= {
       userId: 1,
       id: 101,
       title: 'Test Post',

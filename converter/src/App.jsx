@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 import Select from 'react-select'
 import './App.css'
+import { fetchDataFromApi } from './services/converterApi'
 
 function App() {
-	const [apiData1, setApiData1] = useState(null)
-	const [apiData2, setApiData2] = useState(null)
+	const [apiData, setApiData] = useState(null)
 	const [curRateHistory, setCurRateHistory] = useState({})
 	const [fromCurrency, setFromCurrency] = useState('mdl')
 	const [toCurrency, setToCurrency] = useState('usd')
@@ -14,29 +14,19 @@ function App() {
 
 	useEffect(() => {
 		const fetchData = async () => {
-			const response = await fetch(
-				'https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies.json'
-			)
-			const responseCurDefault = await fetch(
-				`https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/${fromCurrency}.json`
-			)
-
-			const data = await response.json()
-			const curDefault = await responseCurDefault.json()
+			const apiDataResp = await fetchDataFromApi('latest/v1/currencies.json')
+			const curDefault = await fetchDataFromApi(`latest/v1/currencies/${fromCurrency}.json`)
 			setRates(curDefault[fromCurrency])
-			console.log(data)
-			setApiData1(
-				Object.entries(data).map(([value, label]) => ({ value, label }))
-			)
-			setApiData2(
-				Object.entries(data).map(([value, label]) => ({ value, label }))
+			console.log(apiDataResp)
+			setApiData(
+				Object.entries(apiDataResp).map(([value, label]) => ({ value, label }))
 			)
 			await fetchHistory(fromCurrency).catch(console.error)
 		}
-		if (!apiData1 && !apiData2) {
+		if (!apiData) {
 			fetchData().catch(console.error)
 		}
-	}, [apiData1, apiData2])
+	}, [apiData])
 
 	useEffect(() => {
 		if (rates && amount && toCurrency) {
@@ -63,16 +53,13 @@ function App() {
 
 	const fetchCurrency = async currency => {
 		setCurRateHistory(null)
-		const response = await fetch(
-			`https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/${currency}.json`
-		)
-		const data = await response.json()
-		console.log(data[currency])
-		setRates(data[currency])
+		const currencyData = await fetchDataFromApi(`latest/v1/currencies/${currency}.json`)
+		console.log(currencyData[currency])
+		setRates(currencyData[currency])
 
 		//fetch history
 		await fetchHistory(currency).catch(console.error)
-		return data
+		return currencyData
 	}
 
 	const fetchHistory = async currency => {
@@ -81,11 +68,7 @@ function App() {
 			date.setDate(date.getDate() - i)
 			let formattedDate = date.toISOString().split('T')[0]
 			console.log(formattedDate)
-			const dayResponse = await fetch(
-				`https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@${formattedDate}/v1/currencies/${currency}.json`
-			)
-			const dayData = await dayResponse.json()
-			// console.log(dayData[currency][toCurrency])
+			const dayData = await fetchDataFromApi(`${formattedDate}/v1/currencies/${currency}.json`)
 			setCurRateHistory(prevState => ({
 				...prevState,
 				[formattedDate]: dayData[currency],
@@ -96,7 +79,7 @@ function App() {
 
 	return (
 		<div className='container fade-in'>
-			{!apiData1 || !apiData2 ? (
+			{!apiData  ? (
 				<div className='loading'>
 					<div className='card skeleton'>
 						<h1>Загрузка данных...</h1>
@@ -111,10 +94,10 @@ function App() {
 								fetchCurrency(selected?.value)
 							}}
 							classNamePrefix='select'
-							value={apiData1.find(option => option.value === fromCurrency)}
+							value={apiData.find(option => option.value === fromCurrency)}
 							isSearchable={true}
 							name='exchange-1'
-							options={apiData1}
+							options={apiData}
 							className='basic-single'
 							placeholder='Select From Currency'
 						/>
@@ -141,10 +124,10 @@ function App() {
 							}}
 							className='basic-single'
 							classNamePrefix='select'
-							value={apiData1.find(option => option.value === toCurrency)}
+							value={apiData.find(option => option.value === toCurrency)}
 							isSearchable={true}
 							name='exchange-2'
-							options={apiData1}
+							options={apiData}
 							placeholder='Select To Currency'
 						/>
 						<input
@@ -166,7 +149,7 @@ function App() {
 											{new Date(date).toLocaleDateString('ru-RU')}
 										</span>
 										<span className='history-value'>
-											{rate[toCurrency]
+											{rate[toCurrency] 
 												? `${(amount * rate[toCurrency]).toFixed(
 														2
 												  )} ${toCurrency.toUpperCase()}`
