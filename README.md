@@ -10,6 +10,6 @@ Task 4 - Jest/React Library tasks - done
 
 Task 5 - Redux/RTK Tasks - done
 
-Task 6 - Angular Tasks - 3/5
+Task 6 - Angular Tasks - done
 
 
