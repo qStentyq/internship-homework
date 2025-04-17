@@ -164,7 +164,19 @@ function App() {
 							<h2>Загрузка истории...</h2>
 						</div>
 					)}
+					<div className='popular_rates'>
+						<div className="rate_container toast ">
+						Rates vs most popular currencies:
+						<div className='pop-rate-item'>MDL: {amount * Number(rates['mdl'])}</div>
+						<div className='pop-rate-item'>USD: {amount * Number(rates['usd'])}</div>
+						<div className='pop-rate-item'>EUR: {amount * Number(rates['eur'])}</div>
+						<div className='pop-rate-item'>RON: {amount * Number(rates['ron'])}</div>
+
+						</div>
+
+					</div>
 				</>
+				
 			)}
 		</div>
 	)
