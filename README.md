@@ -4,7 +4,7 @@ Task 1 - Creation of convertor using JS + React- done
 
 Task 2 - TypeScript introduction tasks - done
 
-Task 3 - Many react tasks - (8/9)
+Task 3 - Many react tasks - done
 
 Task 4 - Jest/React Library tasks - done
 

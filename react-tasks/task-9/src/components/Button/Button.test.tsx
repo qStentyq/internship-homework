@@ -1,7 +1,7 @@
 import Button from "./Button";
 import {vi, describe, it, expect} from 'vitest'
 import '@testing-library/jest-dom'
-import { render, fireEvent,screen } from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 
 // vi.mock("./Button", () => ({
 //     default: vi.fn()
