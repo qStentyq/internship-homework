@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build  --base-href /internship-homework/angular/ ",
+    "build": "ng build  --base-href /internship-homework/angular/first-app ",
     "watch": "ng build --watch --configuration development"
   },
   "private": true,

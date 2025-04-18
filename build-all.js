@@ -6,21 +6,21 @@ const path = require('path');
 //'react-tasks/task1', 'react-tasks/task-2', 'react-tasks/task-3', 
 // 'react-tasks/task-4', ,'react-tasks/task-5','react-tasks/task-6',
 // 'react-tasks/task-7', 'react-tasks/task-8', 'angular'
-// const projects = ['converter','react-tasks/task1', 'react-tasks/task-2', 'react-tasks/task-3', 
-//   'react-tasks/task-4', ,'react-tasks/task-5','react-tasks/task-6',
-//   'react-tasks/task-7', 'react-tasks/task-8', 'angular', 'redux-tasks'];
-const projects = ['angular']
+const projects = ['converter','react-tasks/task1', 'react-tasks/task-2', 'react-tasks/task-3', 
+  'react-tasks/task-4', ,'react-tasks/task-5','react-tasks/task-6',
+  'react-tasks/task-7', 'react-tasks/task-8', 'redux-tasks'];
+// const projects = ['angular']
 const deployDir = 'docs';
 
 function log(msg) {
   console.log(`\x1b[36m${msg}\x1b[0m`);
 }
 
-// //Очистка docs
-// if (fs.existsSync(deployDir)) {
-//   fs.rmSync(deployDir, { recursive: true });
-// }
-// fs.mkdirSync(deployDir);
+//Очистка docs
+if (fs.existsSync(deployDir)) {
+  fs.rmSync(deployDir, { recursive: true });
+}
+fs.mkdirSync(deployDir);
 
 projects.forEach((proj) => {
   const projPath = path.join(__dirname, proj);
@@ -37,9 +37,9 @@ projects.forEach((proj) => {
   log(`📦 Building ${proj}...`);
 
   execSync('npm install', { cwd: projPath, stdio: 'inherit' });
-  // execSync('npm run build', { cwd: projPath, stdio: 'inherit' });
-  execSync('ng build  --base-href "https://qstentyq.github.io/internship-homework/angular"', 
-    { cwd: projPath, stdio: 'inherit' });
+  execSync('npm run build', { cwd: projPath, stdio: 'inherit' });
+  // execSync('ng build  --base-href "https://qstentyq.github.io/internship-homework/angular"', 
+  //   { cwd: projPath, stdio: 'inherit' });
 
   if(proj === 'react-tasks/task-5') {
     log(`📁 Copying ${buildPath} → ${targetPath}`);
