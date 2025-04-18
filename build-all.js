@@ -17,10 +17,22 @@ function log(msg) {
 }
 
 //Очистка docs
-// if (fs.existsSync(deployDir)) {
-//   fs.rmSync(deployDir, { recursive: true });
-// }
-// fs.mkdirSync(deployDir);
+if (fs.existsSync(deployDir)) {
+  fs.readdirSync(deployDir).forEach((file) => {
+    if (file !== 'index.html' && file !== 'styles.css') {
+      const filePath = path.join(deployDir, file);
+      if (fs.lstatSync(filePath).isDirectory()) {
+        fs.rmSync(filePath, { recursive: true });
+      } else {
+        fs.unlinkSync(filePath);
+      }
+    }
+  });
+}
+if (fs.existsSync(deployDir)) {
+  fs.rmSync(deployDir, { recursive: true });
+}
+fs.mkdirSync(deployDir);
 
 projects.forEach((proj) => {
   const projPath = path.join(__dirname, proj);
