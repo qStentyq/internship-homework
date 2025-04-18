@@ -2,7 +2,8 @@ import { configureStore } from '@reduxjs/toolkit'
 import counterReducer from '../features/counter/counterSlice'
 import postReducer from '../features/posts/postSlice'
 
-const logger = store => next => action => {
+//@ts-ignore
+const logger = store  => next => action => {
   console.log('Dispatching:', action)
   const result = next(action)
   console.log('Next state:', store.getState())
@@ -20,3 +21,4 @@ export const store = configureStore({
 export type RootState = ReturnType<typeof store.getState>
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch
+export type AppStore = typeof store
