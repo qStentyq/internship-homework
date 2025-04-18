@@ -44,6 +44,7 @@ const handlePostSubmit = (e: React.FormEvent<HTMLFormElement>) => {
   }, [postsStatus, dispatch])
 
 let content;
+
 if (postsStatus === 'loading' ) {
 content = <p>Loading...</p>;
 } else if (postsStatus === 'succeeded' ) {
@@ -73,6 +74,7 @@ content = <p>{error?.toString()}</p>; }
   <input type='submit' placeholder='Add new post'/>
 </div>
 </form>
+<br/> 
 <button onClick={() => setIsLongPosts(true)}>Show only long posts</button>
 <button onClick={() => setIsLongPosts(false)}>Show all posts</button>
 {content}
