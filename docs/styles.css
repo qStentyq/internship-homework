@@ -43,7 +43,8 @@ ul {
 body {
     background-image: url('https://opengameart.org/sites/default/files/2304x1296.png');
    
-    background-size: contain;
+    /* background-size: contain; */
+    
 }
 
 
