@@ -32,7 +32,7 @@ const handlePostSubmit = (e: React.FormEvent<HTMLFormElement>) => {
   // console.log(formTitle, formBody);
   // console.log(e)
 
-  dispatch(addPost({ userId: formId, title: formTitle, body: formBody, id: Number(posts[posts.length - 1].id) + 1 }))
+  dispatch(addPost({ userId: formId, title: formTitle, body: formBody, id: Number(Allposts[Allposts.length - 1].id) + 1 }))
 
 }
 
