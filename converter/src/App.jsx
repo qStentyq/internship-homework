@@ -17,20 +17,20 @@ function App() {
 			const apiDataResp = await fetchDataFromApi('latest/v1/currencies.json')
 			const curDefault = await fetchDataFromApi(`latest/v1/currencies/${fromCurrency}.json`)
 			setRates(curDefault[fromCurrency])
-			console.log(apiDataResp)
+			// console.log(apiDataResp)
 			setApiData(
 				Object.entries(apiDataResp).map(([value, label]) => ({ value, label }))
 			)
-			await fetchHistory(fromCurrency).catch(console.error)
+			await fetchHistory(fromCurrency).catch()
 		}
 		if (!apiData) {
-			fetchData().catch(console.error)
+			fetchData().catch()
 		}
 	}, [apiData])
 
 	useEffect(() => {
 		if (rates && amount && toCurrency) {
-			console.log(rates, toCurrency, amount * rates[toCurrency])
+			// console.log(rates, toCurrency, amount * rates[toCurrency])
 			if (rates[toCurrency]) {
 				setResult(amount * rates[toCurrency])
 			}
@@ -54,11 +54,11 @@ function App() {
 	const fetchCurrency = async currency => {
 		setCurRateHistory(null)
 		const currencyData = await fetchDataFromApi(`latest/v1/currencies/${currency}.json`)
-		console.log(currencyData[currency])
+		// console.log(currencyData[currency])
 		setRates(currencyData[currency])
 
 		//fetch history
-		await fetchHistory(currency).catch(console.error)
+		await fetchHistory(currency).catch()
 		return currencyData
 	}
 
@@ -67,13 +67,13 @@ function App() {
 			let date = new Date()
 			date.setDate(date.getDate() - i)
 			let formattedDate = date.toISOString().split('T')[0]
-			console.log(formattedDate)
+			// console.log(formattedDate)
 			const dayData = await fetchDataFromApi(`${formattedDate}/v1/currencies/${currency}.json`)
 			setCurRateHistory(prevState => ({
 				...prevState,
 				[formattedDate]: dayData[currency],
 			}))
-			console.log(curRateHistory)
+			// console.log(curRateHistory)
 		}
 	}
 
