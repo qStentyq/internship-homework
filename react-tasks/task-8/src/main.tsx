@@ -6,24 +6,16 @@ import Home from "./Home.tsx";
 import "./App.css";
 import Posts from "./components/Posts/Posts.tsx";
 import Todos from "./components/Todo/Todos.tsx";
+import { defaultPath } from "./constants.ts";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <div className='App'>
-      <BrowserRouter>
+      <BrowserRouter basename={defaultPath}>
         <Routes>
-          <Route
-            path='/internship-homework/react-tasks/task-8/'
-            element={<Home />}
-          />
-          <Route
-            path='/internship-homework/react-tasks/task-8/todos'
-            element={<Todos />}
-          />
-          <Route
-            path='/internship-homework/react-tasks/task-8/posts'
-            element={<Posts />}
-          />
+          <Route index element={<Home />} />
+          <Route path='/todos' element={<Todos />} />
+          <Route path='/posts' element={<Posts />} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -1,0 +1,1 @@
+export const defaultPath = '/internship-homework/react-tasks/task-8'

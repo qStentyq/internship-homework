@@ -4,9 +4,10 @@ import postReducer from '../features/posts/postSlice'
 
 //@ts-ignore
 const logger = store  => next => action => {
-  console.log('Dispatching:', action)
+  //Logger middleware, commented for deploy, only for dev purposes
+  // console.log('Dispatching:', action)
   const result = next(action)
-  console.log('Next state:', store.getState())
+  // console.log('Next state:', store.getState())
   return result
 }
 export const store = configureStore({

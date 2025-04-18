@@ -28,11 +28,10 @@ if (fs.existsSync(deployDir)) {
       }
     }
   });
+} else {
+  fs.mkdirSync(deployDir)
 }
-if (fs.existsSync(deployDir)) {
-  fs.rmSync(deployDir, { recursive: true });
-}
-fs.mkdirSync(deployDir);
+
 
 projects.forEach((proj) => {
   const projPath = path.join(__dirname, proj);
