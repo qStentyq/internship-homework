@@ -13,26 +13,11 @@
 	padding: 1.5em;
 	will-change: filter;
 	transition: filter var(--transition-normal),
-		transform var(--transition-normal);
+	transform var(--transition-normal);
 }
 
-.logo:hover {
-	filter: drop-shadow(0 0 2em var(--color-accent));
-	transform: scale(1.1);
-}
 
-.logo.react:hover {
-	filter: drop-shadow(0 0 2em var(--color-accent));
-}
 
-@keyframes logo-spin {
-	from {
-		transform: rotate(0deg);
-	}
-	to {
-		transform: rotate(360deg);
-	}
-}
 
 @media (prefers-reduced-motion: no-preference) {
 	a:nth-of-type(2) .logo {
@@ -42,7 +27,6 @@
 
 .card {
 	padding: 2em;
-	background: white;
 	border-radius: var(--radius-md);
 	box-shadow: var(--shadow-md);
 	margin: 1em auto;
@@ -51,7 +35,7 @@
 	backdrop-filter: blur(10px);
 	border: 1px solid var(--color-border);
 	transition: transform var(--transition-normal),
-		box-shadow var(--transition-normal);
+	box-shadow var(--transition-normal);
 }
 
 .card:hover {
@@ -110,7 +94,7 @@
 	max-width: 150px;
 	background: white;
 	transition: border-color var(--transition-fast),
-		box-shadow var(--transition-fast);
+	box-shadow var(--transition-fast);
 }
 
 #cur-1:focus,
@@ -168,7 +152,7 @@
 	border-radius: var(--radius-sm);
 	border: 1px solid var(--color-border);
 	transition: transform var(--transition-fast),
-		box-shadow var(--transition-fast);
+	box-shadow var(--transition-fast);
 }
 
 .history-item:hover {
@@ -198,7 +182,6 @@
 }
 
 .toast {
-	/* position: fixed; */
 	bottom: 2rem;
 	right: 2rem;
 	padding: 1rem 1.5rem;
@@ -213,8 +196,6 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-
-	
 }
 
 .rate_container {
@@ -224,8 +205,6 @@
 	background-color: rgb(255, 245, 224) ;
 	padding: 30px;
 	width: 60%
-	
-	
 }
 
 .pop-rate-item {

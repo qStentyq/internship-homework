@@ -11,7 +11,4 @@ export async function fetchDataFromApi(path = '') {
     catch {
         return new Error("Couldn't fetch data properly, try again")
     }
-    finally {
-        console.log(1)
-    }
 }

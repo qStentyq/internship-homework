@@ -1,42 +1,58 @@
 import { useEffect, useState } from 'react'
-import Select from 'react-select'
+import CurrencySelector from './components/CurrencySelector'
 import './App.css'
+import { debounce } from 'lodash'
 import { fetchDataFromApi } from './services/converterApi'
+import HistoryList from './components/HistoryList'
+
+//CONSTANTS 
+const DEFAULT_FROM_CURRENCY = 'mdl';
+const DEFAULT_TO_CURRENCY = 'usd';
+const POPULAR_CURRENCIES = ['mdl','usd','eur','ron']
+
 
 function App() {
 	const [apiData, setApiData] = useState(null)
 	const [curRateHistory, setCurRateHistory] = useState({})
-	const [fromCurrency, setFromCurrency] = useState('mdl')
-	const [toCurrency, setToCurrency] = useState('usd')
+	const [fromCurrency, setFromCurrency] = useState(DEFAULT_FROM_CURRENCY)
+	const [toCurrency, setToCurrency] = useState(DEFAULT_TO_CURRENCY)
 	const [rates, setRates] = useState(null)
-	const [amount, setAmount] = useState(null)
-	const [result, setResult] = useState(null)
+	const [amount, setAmount] = useState(0)
+	
+	//DATA FETCH HELPER FOR ALL FETCH CALLS
+	const fetchCurrencyData = async (endpoint) => {
+		try {
+			return await fetchDataFromApi(endpoint);
+		} catch (error) {
+			console.error(`Error fetching data from ${endpoint}:`, error);
+			return null;
+		}
+		};
 
 	useEffect(() => {
 		const fetchData = async () => {
-			const apiDataResp = await fetchDataFromApi('latest/v1/currencies.json')
-			const curDefault = await fetchDataFromApi(`latest/v1/currencies/${fromCurrency}.json`)
-			setRates(curDefault[fromCurrency])
-			// console.log(apiDataResp)
-			setApiData(
-				Object.entries(apiDataResp).map(([value, label]) => ({ value, label }))
-			)
-			await fetchHistory(fromCurrency).catch()
+			const apiDataResp = await fetchCurrencyData('latest/v1/currencies.json')
+			if(apiDataResp) {
+				setApiData(Object.entries(apiDataResp).map(([value, label]) => ({ value, label })))
+			}
+			const curDefault = await fetchCurrencyData(`latest/v1/currencies/${fromCurrency}.json`)
+			if(curDefault) {
+				setRates(curDefault[fromCurrency])
+			}
+			await fetchHistory(fromCurrency)
 		}
 		if (!apiData) {
-			fetchData().catch()
+			fetchData()
 		}
 	}, [apiData])
 
-	useEffect(() => {
-		if (rates && amount && toCurrency) {
-			// console.log(rates, toCurrency, amount * rates[toCurrency])
-			if (rates[toCurrency]) {
-				setResult(amount * rates[toCurrency])
-			}
+	const calculateResult = () => {
+		if (rates && amount && toCurrency && rates[toCurrency]) {
+		  return amount * rates[toCurrency];
 		}
-	}, [rates, amount, toCurrency])
-
+		return null;
+	  };
+	  
 	const swapChanges = async e => {
 		e.preventDefault()
 		const temp = fromCurrency
@@ -46,35 +62,40 @@ function App() {
 		await fetchCurrency(toCurrency)
 	}
 
-	const fromInputHandler = e => {
-		e.preventDefault()
-		setAmount(e.target.value)
+	const fromInputHandler = debounce((value) => {
+		// e.preventDefault();
+		setAmount(value);
+	}, 50)
+
+	const handleInputChange = (e) => {
+		const value = e.target.value;
+		fromInputHandler(value)
 	}
 
+	//FETCH CONCRETE CURRENCY
 	const fetchCurrency = async currency => {
 		setCurRateHistory(null)
-		const currencyData = await fetchDataFromApi(`latest/v1/currencies/${currency}.json`)
-		// console.log(currencyData[currency])
-		setRates(currencyData[currency])
-
+		const currencyData = await fetchCurrencyData(`latest/v1/currencies/${currency}.json`)
+		if(currencyData) {
+			setRates(currencyData[currency])
+		}
 		//fetch history
-		await fetchHistory(currency).catch()
+		await fetchHistory(currency)
 		return currencyData
 	}
 
 	const fetchHistory = async currency => {
+		const history = {}
 		for (let i = 0; i < 10; i++) {
 			let date = new Date()
 			date.setDate(date.getDate() - i)
 			let formattedDate = date.toISOString().split('T')[0]
-			// console.log(formattedDate)
-			const dayData = await fetchDataFromApi(`${formattedDate}/v1/currencies/${currency}.json`)
-			setCurRateHistory(prevState => ({
-				...prevState,
-				[formattedDate]: dayData[currency],
-			}))
-			// console.log(curRateHistory)
+			const dayData = await fetchCurrencyData(`${formattedDate}/v1/currencies/${currency}.json`)
+			if(dayData) {
+				history[formattedDate] = dayData[currency];
+			}
 		}
+		setCurRateHistory(history)
 	}
 
 	return (
@@ -88,17 +109,14 @@ function App() {
 			) : (
 				<>
 					<div className='cur'>
-						<Select
+						<CurrencySelector
 							onChange={selected => {
 								setFromCurrency(selected?.value)
 								fetchCurrency(selected?.value)
 							}}
-							classNamePrefix='select'
-							value={apiData.find(option => option.value === fromCurrency)}
-							isSearchable={true}
+							value={fromCurrency}
 							name='exchange-1'
 							options={apiData}
-							className='basic-single'
 							placeholder='Select From Currency'
 						/>
 						<input
@@ -106,7 +124,7 @@ function App() {
 							name='cur-1'
 							id='cur-1'
 							value={amount}
-							onChange={fromInputHandler}
+							onChange={handleInputChange}
 							placeholder='Enter Amount'
 						/>
 					</div>
@@ -117,15 +135,12 @@ function App() {
 						className='swap'
 					/>
 					<div className='cur'>
-						<Select
+						<CurrencySelector
 							onChange={selected => {
 								setToCurrency(selected?.value)
 								fetchHistory(fromCurrency)
 							}}
-							className='basic-single'
-							classNamePrefix='select'
-							value={apiData.find(option => option.value === toCurrency)}
-							isSearchable={true}
+							value={toCurrency}
 							name='exchange-2'
 							options={apiData}
 							placeholder='Select To Currency'
@@ -135,29 +150,14 @@ function App() {
 							name='cur-2'
 							id='cur-2'
 							disabled
-							value={result}
+							value={calculateResult() || 0}
 							placeholder='Converted Amount'
 						/>
 					</div>
 					{curRateHistory ? (
 						<div className='card history fade-in'>
 							<h2>История курсов</h2>
-							<div className='history-list'>
-								{Object.entries(curRateHistory).map(([date, rate]) => (
-									<div key={date} className='history-item'>
-										<span className='history-date'>
-											{new Date(date).toLocaleDateString('ru-RU')}
-										</span>
-										<span className='history-value'>
-											{rate[toCurrency] 
-												? `${(amount * rate[toCurrency]).toFixed(
-														2
-												  )} ${toCurrency.toUpperCase()}`
-												: 'Нет данных'}
-										</span>
-									</div>
-								))}
-							</div>
+							<HistoryList history={curRateHistory} amount={amount} toCurrency={toCurrency} rate={rates}/>
 						</div>
 					) : (
 						<div className='card loading skeleton'>
@@ -165,18 +165,19 @@ function App() {
 						</div>
 					)}
 					<div className='popular_rates'>
+						{rates && (
 						<div className="rate_container toast ">
 						Rates vs most popular currencies:
-						<div className='pop-rate-item'>MDL: {amount * Number(rates['mdl'])}</div>
-						<div className='pop-rate-item'>USD: {amount * Number(rates['usd'])}</div>
-						<div className='pop-rate-item'>EUR: {amount * Number(rates['eur'])}</div>
-						<div className='pop-rate-item'>RON: {amount * Number(rates['ron'])}</div>
-
+						{POPULAR_CURRENCIES.map((item) => {
+							return(
+							<div key={item} className='pop-rate-item'>{item.toUpperCase()}: {amount * Number(rates[item] || 0)}</div>)
+						})	
+						}
 						</div>
+						)}
 
 					</div>
 				</>
-				
 			)}
 		</div>
 	)
