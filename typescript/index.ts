@@ -12,13 +12,13 @@ console.log(myString, myNumber, myBoolean);
 
 const myArray : number[] = [1,2,3,4,5];
 const myTuple : [string, number] = ["Hello", 42];
-const infinityBooleanTuple : [string, ...boolean[]] = ["Hello", true, false, true, false];
+const booleanTuple : [string, ...boolean[]] = ["Hello", true, false, true, false];
 
-console.log(myArray, myTuple, infinityBooleanTuple);
+console.log(myArray, myTuple, booleanTuple);
 
 //FUNCTIONS AND TYPE ANOTATIONS Write a function that takes two numbers as parameters, adds them, 
 // and returns the result with type annotation
-function add(a: number, b: number): number {
+function add(a: number = 0, b: number = 0): number {
     return a + b;
 }
 console.log(add(2, 3)); 
@@ -46,15 +46,20 @@ console.log(person);
 //UNION TYPES. Create a function that accepts a parameter that can be either a string or number and logs it
 
 function printId(id: number | string) {
-    console.log("Your ID is: " + id);
+    if(typeof id === 'number') {
+        console.log("Your numberic ID is: " + id);
+    } else {
+        console.log(`Your string ID is ${id}`)
+    }
+
 }
 printId(101);
 printId("202");
 
 //ALIASSES. Create a type alias UserID that can be a string or number. Use it to declare a variable.
 
-type userID = number | string;
-const myID : userID = 3;
+type UserID = number | string;
+const myID : UserID = 3;
 
 //ENUM. Create an enum named Status with values Pending, InProgress, and Completed. Log one value.
 
@@ -98,11 +103,11 @@ class ElectricCar extends Car {
 //GENERIC FUNCTIONS. Create a generic function that takes an array of any type and returns its length.
 
 
-function getLength<T>(arg: T[]): number {
+function getLength<T extends Object>(arg: ReadonlyArray<T>): number {
     return arg.length;
 }
 console.log(getLength([1, 2, 3]));
-console.log(getLength(["Hello", "World"])); 
+console.log(getLength(["Hello", "World"]));
 
 //GENERIC INTERFACES. Create a generic interface Box<T> with a property value: T. Instantiate it with a string.
 interface Box<T> {
