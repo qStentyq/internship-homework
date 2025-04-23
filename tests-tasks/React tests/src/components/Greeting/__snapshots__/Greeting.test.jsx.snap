@@ -1,3 +1,11 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`Greeting > renders correctly 1`] = `null`;
+
+exports[`Greeting Component > matches snapshot 1`] = `
+<DocumentFragment>
+  <h1>
+    Hello John
+  </h1>
+</DocumentFragment>
+`;

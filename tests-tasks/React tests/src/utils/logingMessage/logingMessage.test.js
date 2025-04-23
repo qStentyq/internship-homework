@@ -15,6 +15,15 @@ describe('logingMessage', () => {
         consoleLogMock.mockRestore();
 
     });
+    it('should handle undefined input gracefully', () => {
+        const consoleLogMock = vi.spyOn(console, 'log').mockImplementation(() => {});
+        const result = logingMessage(undefined);
+        expect(consoleLogMock).toBeCalledTimes(1);
+        expect(consoleLogMock).toBeCalledWith(undefined);
+        expect(result).toBe(undefined);
+        consoleLogMock.mockRestore();
+    });
+
 
 
 });
