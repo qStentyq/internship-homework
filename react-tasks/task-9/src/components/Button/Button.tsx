@@ -1,18 +1,18 @@
-import React from 'react'
+import React from "react";
 
 type BtnProps = {
-    onClickCustom:  React.MouseEventHandler<HTMLButtonElement>
-    text: string,
-    color: string
-}
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  text: string;
+  color: string;
+};
 
-function Button({onClickCustom, text, color = 'blue'} : BtnProps) {
-
-
+function Button({ onClick, text, color = "blue" }: BtnProps) {
+  const buttonStyle = { color };
   return (
-    <button onClick={onClickCustom} style={{color: color}}>{text}
-   </button>
-  )
+    <button onClick={onClick} style={buttonStyle}>
+      {text}
+    </button>
+  );
 }
 
-export default Button
+export default Button;

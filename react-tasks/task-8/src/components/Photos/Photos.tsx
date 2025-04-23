@@ -1,8 +1,8 @@
 import useFetchData from "../../hooks/useFetchData";
-import { defaultPath } from "../../constants";
+import { Link } from "react-router-dom";
 
 export default function Photos() {
-  const data = useFetchData({
+  const { data, error } = useFetchData({
     //Data is corrupted since unavaible to get images from url provided by API
     dataResource: "https://jsonplaceholder.typicode.com/photos",
   });
@@ -10,11 +10,11 @@ export default function Photos() {
     <>
       <button>
         {" "}
-        <a href={`${defaultPath}/todos`}>Go to Todos</a>
+        <Link to={`/todos`}>Go to Todos</Link>
       </button>
       <button>
         {" "}
-        <a href={`${defaultPath}/posts`}>Go to Posts</a>{" "}
+        <Link to={`/posts`}>Go to Posts</Link>{" "}
       </button>
       <div className='photos'>
         {data.length > 0 ? (
@@ -35,6 +35,7 @@ export default function Photos() {
         ) : (
           <div className='loading'>Loading...</div>
         )}
+        {error instanceof Error && <p>Error loading posts: {error.message}</p>}
       </div>
     </>
   );

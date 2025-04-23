@@ -1,31 +1,34 @@
-import { createContext, useState, Dispatch, SetStateAction } from 'react'
-import './App.css'
-import ComponentA from './components/ComponentA'
+import {
+  createContext,
+  useState,
+  Dispatch,
+  SetStateAction,
+  ReactNode,
+} from "react";
+import "./App.css";
+import ComponentA from "./components/ComponentA";
 
-const CountContext = createContext<{ count: number; setCount: Dispatch<SetStateAction<number>> }>({
-  count: 0,
-  setCount: () => {}
-})
+type CountContextType = {
+  count: number;
+  setCount: Dispatch<SetStateAction<number>>;
+};
 
-const CounterProvider = () => {
+const CountContext = createContext<CountContextType | undefined>(undefined);
+const CounterProvider = ({ children }: { children: ReactNode }) => {
   const [count, setCount] = useState(0);
- 
   return (
     <CountContext.Provider value={{ count, setCount }}>
-      <App/>
+      {children}
     </CountContext.Provider>
   );
- };
+};
 
 function App() {
- 
-
-  const [count, setCount] = useState(0)
   return (
-    <CountContext.Provider value={{count, setCount}}>
-      <ComponentA/>
-    </CountContext.Provider>
-  )
+    <CounterProvider>
+      <ComponentA />
+    </CounterProvider>
+  );
 }
 
-export {App, CountContext, CounterProvider}
+export { App, CountContext, CounterProvider };

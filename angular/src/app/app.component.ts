@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { userService } from './users.service';
-import { User } from './users.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { UserService } from './user.service';
+import { User } from './user.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,7 @@ import { User } from './users.service';
   <div [class.blue-text]="isVisible" [class.black-text]="!isVisible">
     @if(isVisible) {
       <h1>Profiles data: </h1>
-      @for (user of users; track user; let i = $index) {
+      @for (user of users; track user.id; let i = $index) {
   
       <h2>Name: <span contentEditable="true">{{user.name}}</span>, Email: {{user.email}}, age {{user.age || 'N/A'}}</h2>
       <button (click)="increaseAge(i)">Increase age</button>
@@ -24,29 +25,22 @@ import { User } from './users.service';
     <button (click)="resetCount()">Reset counter</button>
   </div>
   `,
-  styleUrls: ['./app.component.css'],
-  styles: [`
-    .blue-text {
-      color: blue;
-    }
-    .black-text {
-      color: black;
-    }
-  `]
+  styleUrls: ['./app.component.css']
 })
-export class UserProfile implements OnInit {
+export class UserProfile implements OnInit, OnDestroy {
   users: User[] = [];
   isVisible = true;
   buttonCounter = 0;
+  subscription = new Subscription()
 
-  constructor(private userServiceComponent: userService) {}
-
+  constructor(private userServiceComponent: UserService) {}
+  
   ngOnInit() {
-    this.userServiceComponent.getUsers().subscribe(
+    this.subscription = this.userServiceComponent.getUsers().subscribe(
       (data: User[]) => {
         this.users = data.map(user => ({
           ...user,
-          age: user.age || Math.floor(Math.random() * 30) + 20 // Adding random age since the API doesn't provide ages
+          age: user.age || Math.floor(Math.random() * 30) + 20 
         }));
       },
       error => {
@@ -54,12 +48,12 @@ export class UserProfile implements OnInit {
       }
     );
   }
-
+  
   toggleVis() {
     this.isVisible = !this.isVisible;
     this.buttonCounter++;
   }
-
+  
   increaseAge(index: number) {
     if (!this.users[index].age) {
       this.users[index].age = 18;
@@ -67,8 +61,12 @@ export class UserProfile implements OnInit {
     this.users[index].age!++;
     this.buttonCounter++;
   }
-
+  
   resetCount() {
     this.buttonCounter = 0;
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe()
   }
 }
