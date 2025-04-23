@@ -23,7 +23,7 @@ export default function Post() {
   useMemo(() => longPosts, [longPosts]);
 
   const posts = isLongPosts ? longPosts : Allposts;
-  // console.log(isLongPosts, posts, longPosts)
+  console.log(isLongPosts, posts, longPosts);
 
   const handlePostSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

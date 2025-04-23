@@ -15,7 +15,7 @@ export const fetchPostsFromApi = async () => {
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
-  return response.json();
+  return response;
 };
 
 export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
