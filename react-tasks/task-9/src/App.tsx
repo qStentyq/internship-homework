@@ -1,16 +1,32 @@
-
-import Button from './components/Button/Button'
-import './App.css'
+import Button from "./components/Button/Button";
+import "./App.css";
 
 function App() {
-
+  const buttons = [
+    {
+      text: "First button",
+      color: "wheat",
+      onClick: () => console.log("Customed button 1"),
+    },
+    {
+      text: "Second button",
+      color: "red",
+      onClick: () => console.log("Customed button 2"),
+    },
+  ];
 
   return (
     <>
-      <Button text='First button' color='wheat' onClickCustom={() => {console.log('Customed button 1')}}/>
-      <Button text='Second button' color='red' onClickCustom={() => {console.log('Customed button 2')}}/>
+      {buttons.map((button, index) => (
+        <Button
+          key={index}
+          text={button.text}
+          color={button.color}
+          onClick={button.onClick}
+        />
+      ))}
     </>
-  )
+  );
 }
 
-export default App
+export default App;

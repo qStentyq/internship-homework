@@ -27,32 +27,42 @@ interface User {
 
 export default function Users() {
   const [users, setUsers] = useState<User[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchUsers = async () => {
+    const fetchUsers = async (): Promise<User[]> => {
       const response = await fetch(
         "https://jsonplaceholder.typicode.com/users"
       );
-      const data = await response.json();
-      // console.log(data)
-      setUsers(data);
-      // setLoading(false)
+      if (!response.ok) {
+        throw new Error("Failed to fetch users");
+      }
+      return response.json();
     };
-    try {
-      fetchUsers();
-    } catch (error) {
-      console.error("Error fetching users:", error);
-    }
+    const loadUsers = async () => {
+      try {
+        const data = await fetchUsers();
+        setUsers(data);
+      } catch (err) {
+        if (err instanceof Error) {
+          setError(err.message);
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    loadUsers();
   }, []);
   return (
     <>
       <h1 className='user_card_title'>Users</h1>
       <div className='user_card_container'>
-        {users ? (
-          users.map((user, i) => {
+        {!isLoading ? (
+          users.map((user) => {
             return (
-              <div className='a_card' key={i}>
-                <div key={i}>
+              <div className='a_card' key={user.id}>
+                <div>
                   <h1>{user.name}</h1>
                   <p>Username: {user.username}</p>
                   <p>Street adress: {user.address.street}</p>
@@ -67,6 +77,7 @@ export default function Users() {
         ) : (
           <h1>Loading...</h1>
         )}
+        {error && <h1>Error message: {error}</h1>}
       </div>
     </>
   );

@@ -10,3 +10,10 @@ header {
 .content {
   padding: var(--content-padding);
 }
+
+.blue-text {
+  color: blue;
+}
+.black-text {
+  color: black;
+}

@@ -14,7 +14,7 @@ export interface User {
 })
 
 
-export class userService {
+export class UserService {
     url = 'https://jsonplaceholder.typicode.com/users'
     // users =[{id: 1,name: 'Vladimir', email: 'Vladimir.Perepelita@endava.com', age: 22},
     //     {id: 2,name: 'Alex', email: 'Alex.Joski@endava.com', age: 20},

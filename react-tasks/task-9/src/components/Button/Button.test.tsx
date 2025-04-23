@@ -1,29 +1,17 @@
 import Button from "./Button";
-import {vi, describe, it, expect} from 'vitest'
-import '@testing-library/jest-dom'
+import { vi, describe, it, expect } from "vitest";
+import "@testing-library/jest-dom";
 import { render, fireEvent } from "@testing-library/react";
 
-// vi.mock("./Button", () => ({
-//     default: vi.fn()
-// }))
-
-describe('Button tests', () => {
-
-    it('Renders button correctly', () => {
-  
-        const logSpy = vi.spyOn(console, 'log').mockImplementation(() => {})
-        const {getByText} =render(<Button text={'Test button'} color="green" onClickCustom={() => {console.log(1)}}/>)
-
-        expect(getByText(/Test button/i)).toBeInTheDocument()
-        
-       
-        fireEvent.click((getByText(/Test button/i)))
-        expect(logSpy).toHaveBeenCalledWith(1)
-       
-    })
-    
-    
-})
-
-
-
+describe("Button tests", () => {
+  it("Renders button correctly and handles click events", () => {
+    const mockOnClick = vi.fn();
+    const { getByText } = render(
+      <Button text='Test button' color='green' onClick={mockOnClick} />
+    );
+    const buttonElement = getByText(/Test button/i);
+    expect(buttonElement).toBeInTheDocument();
+    fireEvent.click(buttonElement);
+    expect(mockOnClick).toHaveBeenCalledTimes(1);
+  });
+});

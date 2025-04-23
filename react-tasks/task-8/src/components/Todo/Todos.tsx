@@ -2,12 +2,17 @@ import useFetchData from "../../hooks/useFetchData";
 import "./Todo.css";
 
 export default function Todos() {
-  const data = useFetchData({
+  const { data, error } = useFetchData({
     dataResource: "https://jsonplaceholder.typicode.com/todos",
   });
+  if (error) {
+    if (error instanceof Error) {
+      return <div>Error loading todos: {error.message}</div>;
+    }
+  }
   return (
-    <>
-      <div> Todos list (readonly)</div>
+    <div>
+      <div>Todos list (readonly)</div>
       <div>
         {data.map(
           (todo: {
@@ -26,6 +31,6 @@ export default function Todos() {
           }
         )}
       </div>
-    </>
+    </div>
   );
 }

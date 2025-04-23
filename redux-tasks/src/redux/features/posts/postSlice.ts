@@ -1,40 +1,53 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { RootState } from '../../store/store'
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from '../../store/store';
 
+const POST_URL = 'https://jsonplaceholder.typicode.com/posts';
 
-const POST_URL = 'https://jsonplaceholder.typicode.com/posts'
+export enum Status {
+  IDLE = 'idle',
+  LOADING = 'loading',
+  SUCCEEDED = 'succeeded',
+  FAILED = 'failed',
+}
 
-export const fetchPosts = createAsyncThunk('posts/fetchPosts',
-    async () => {
-      try {
-        
-          const response = await fetch(POST_URL)
-          return response.json()
-      }
-      catch (err) {
-        return err
-      }
-    },
-  )
+export const fetchPostsFromApi = async () => {
+  const response = await fetch(POST_URL);
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+  return response.json();
+};
+
+export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
+  try {
+    const response = await fetchPostsFromApi();
+    return response.json();
+  } catch (err) {
+    if (err instanceof Error) {
+      return Promise.reject({ message: err.message });
+    }
+    return Promise.reject({ message: 'Failed to fetch posts' });
+  }
+});
 
 export interface Posts {
-  posts: Post[],
-  status: string,
-  error: string | null
+  posts: Post[];
+  status: string;
+  error: string | null;
 }
 
 export interface Post {
-    userId: number,
-    id?: number,
-    title: string,
-    body: string
+  userId: number;
+  id?: number;
+  title: string;
+  body: string;
 }
 
 export const initialState: Posts = {
   posts: [],
-  status: 'idle',
-  error: null
-}
+  status: Status.IDLE,
+  error: null,
+};
 
 export const postSlice = createSlice({
   name: 'posts',
@@ -43,43 +56,33 @@ export const postSlice = createSlice({
     addPost: (state, action: PayloadAction<Post>) => {
       return {
         ...state,
-        posts: [...state.posts, action.payload]
+        posts: [...state.posts, action.payload],
       };
-    }
+    },
   },
   extraReducers: (builder) => {
-    // Add reducers for additional action types here, and handle loading state as needed
-    builder.addCase(fetchPosts.fulfilled, (state, action) => {
-      
-      state.status = 'succeeded'
-      console.log('Success!')
-      // Add user to the state array
-      state.posts = action.payload
-    })
-    .addCase(fetchPosts.rejected, (state, action) => {
-
-        state.status = 'failed';
+    builder
+      .addCase(fetchPosts.pending, (state) => {
+        state.status = Status.LOADING;
+      })
+      .addCase(fetchPosts.fulfilled, (state, action: PayloadAction<Post[]>) => {
+        state.status = Status.SUCCEEDED;
+        state.posts = action.payload;
+      })
+      .addCase(fetchPosts.rejected, (state, action) => {
+        state.status = Status.FAILED;
         state.error = action.error.message || 'Failed to fetch';
-        
-        
-      })
-    .addCase(fetchPosts.pending, (state) => {
-        state.status = 'loading'
-        console.log('Still pending')
- 
-        
-      })
+      });
   },
-})
+});
 
 // Action creators are generated for each case reducer function
-export const selectAllPosts = (state: RootState) => state.posts.posts
-export const getPostsStatus = (state: RootState) => state.posts.status
-export const getPostsError = (state: RootState) => state.posts.error
+export const selectAllPosts = (state: RootState) => state.posts.posts;
+export const getPostsStatus = (state: RootState) => state.posts.status;
+export const getPostsError = (state: RootState) => state.posts.error;
 //selector for posts longer than 200 chars
-export const getLongPosts = (state: RootState) =>  state.posts.posts.filter((post) => post.body.length > 200)
+export const getLongPosts = (state: RootState) =>
+  state.posts.posts.filter((post) => post.body.length > 200);
 
-
-
-export default postSlice.reducer
-export const {addPost} = postSlice.actions
+export default postSlice.reducer;
+export const { addPost } = postSlice.actions;

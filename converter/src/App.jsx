@@ -50,6 +50,7 @@ function App() {
 		if (rates && amount && toCurrency && rates[toCurrency]) {
 		  return amount * rates[toCurrency];
 		}
+		
 		return null;
 	  };
 	  
@@ -65,7 +66,7 @@ function App() {
 	const fromInputHandler = debounce((value) => {
 		// e.preventDefault();
 		setAmount(value);
-	}, 50)
+	}, 0)
 
 	const handleInputChange = (e) => {
 		const value = e.target.value;
