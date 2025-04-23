@@ -3,7 +3,8 @@ interface UseFetchDataProps {
   dataResource: string;
 }
 export default function useFetchData({ dataResource }: UseFetchDataProps) {
-  const [data, setData] = useState<unknown[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [data, setData] = useState<any[]>([]);
   const [error, setError] = useState<string | Error | null>(null);
   useEffect(() => {
     const fetchData = async () => {

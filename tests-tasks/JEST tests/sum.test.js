@@ -1,23 +1,20 @@
-
-const sum = require('./sum');
-
-
-test('adds 1 + 2 to equal 3', () => {
-  expect(sum(1, 2)).toBe(3);
+import sum from "./sum";
+test('adds -1 + -2 to equal -3', () => {
+  expect(sum(-1, -2)).toBe(-3);
 });
 
-
-test('adds 1 + 2 as string', () => {
-  expect(sum('1', '2')).toBe(3);
+test('adds 1.5 + 2.3 to equal 3.8', () => {
+  expect(sum(1.5, 2.3)).toBeCloseTo(3.8);
 });
 
-test('adds 1 + null', () => {
-  expect(sum('1', null)).toBe(3);
+test('adds large numbers', () => {
+  expect(sum(1e10, 1e10)).toBe(2e10);
 });
 
-test('adds 1 + undefined', () => {
-  expect(sum('1', undefined)).toBe(3);
+test('adds an array and a number', () => {
+  expect(() => sum([1, 2], 3)).toThrow(TypeError);
 });
+
 
 
 //DIFERENCE BETWEEN toBe and toEqual
