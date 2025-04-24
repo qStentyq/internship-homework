@@ -1,14 +1,23 @@
-import { defineConfig, UserConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig, UserConfig } from "vite";
+import { configDefaults } from "vitest/config";
+import react from "@vitejs/plugin-react";
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
   test: {
-    // 👋 add the line below to add jsdom to vite
-    environment: 'jsdom',
-    // hey! 👋 over here
+    environment: "jsdom",
     globals: true,
-    setupFiles: './tests/setup.js', // assuming the test folder is in the root of our project
-  }
-}) as UserConfig
+    coverage: {
+      reporter: ["text", "json", "html"],
+      exclude: [
+        ...configDefaults.exclude,
+        "src/App.tsx",
+        "src/main.tsx",
+        "tests/setup.js",
+        "src/vite-env.d.ts",
+      ],
+    },
+    setupFiles: "./src/setupTests.js",
+  },
+}) as UserConfig;
