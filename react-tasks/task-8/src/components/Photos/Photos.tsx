@@ -1,24 +1,17 @@
 import useFetchData from "../../hooks/useFetchData";
-import { Link } from "react-router-dom";
 import "./Photos.css";
 import { useState } from "react";
+import NavButtons from "../NavButtons";
 
 export default function Photos() {
   const [curPage, setCurPage] = useState(1);
   const { data, error } = useFetchData({
-    //Data is corrupted since unavaible to get images from url provided by API
     dataResource: `https://picsum.photos/v2/list?page=${curPage}&limit=10`,
   });
+  const preprevPage = curPage - 2;
   return (
     <>
-      <button>
-        {" "}
-        <Link to={`/todos`}>Go to Todos</Link>
-      </button>
-      <button>
-        {" "}
-        <Link to={`/posts`}>Go to Posts</Link>{" "}
-      </button>
+      <NavButtons />
       <div className='photos'>
         <h1>Photo galery: </h1>
         {data.length > 0 ? (
@@ -47,20 +40,39 @@ export default function Photos() {
           <div className='loading'>Loading...</div>
         )}
         {error instanceof Error && <p>Error loading posts: {error.message}</p>}
-        <button
-          onClick={() => {
-            setCurPage(curPage - 1);
-            window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-          }}>
-          Prev page
-        </button>
-        <button
-          onClick={() => {
-            setCurPage(curPage + 1);
-            window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-          }}>
-          Next page
-        </button>
+        <div className='footer_nav'>
+          {curPage > 1 && (
+            <button
+              onClick={() => {
+                setCurPage(curPage - 1);
+                window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+              }}>
+              Prev page
+            </button>
+          )}
+          <ul className='pages'>
+            {Array.from({ length: 5 }, (_, i) =>
+              preprevPage + i > 0 ? (
+                <li
+                  className={`page ${
+                    curPage === preprevPage + i ? "cur_page" : ""
+                  }`}
+                  onClick={() => setCurPage(preprevPage + i)}>
+                  {preprevPage + i}
+                </li>
+              ) : (
+                ""
+              )
+            )}
+          </ul>
+          <button
+            onClick={() => {
+              setCurPage(curPage + 1);
+              window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+            }}>
+            Next page
+          </button>
+        </div>
       </div>
     </>
   );

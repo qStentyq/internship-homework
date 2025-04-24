@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
 import useFetchData from "../../hooks/useFetchData";
 import "./Todo.css";
+import NavButtons from "../NavButtons";
 
 export default function Todos() {
   const { data, error } = useFetchData({
@@ -13,14 +13,7 @@ export default function Todos() {
   }
   return (
     <div>
-      <button>
-        {" "}
-        <Link to={`/`}>Go to Photos</Link>
-      </button>
-      <button>
-        {" "}
-        <Link to={`/posts`}>Go to Posts</Link>{" "}
-      </button>
+      <NavButtons />
       <div>Todos list (readonly)</div>
       <div>
         {data.map(
