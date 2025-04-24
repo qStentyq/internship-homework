@@ -1,5 +1,6 @@
 .todo {
     display: flex;
     flex-direction: row;
+    text-align: left;
     gap: 10px;
 }

@@ -1,4 +1,6 @@
+import { Link } from "react-router-dom";
 import useFetchData from "../../hooks/useFetchData";
+import "./Posts.css";
 
 export default function Posts() {
   const { data, error } = useFetchData({
@@ -7,6 +9,14 @@ export default function Posts() {
 
   return (
     <>
+      <button>
+        {" "}
+        <Link to={`/`}>Go to Photos</Link>{" "}
+      </button>
+      <button>
+        {" "}
+        <Link to={`/todos`}>Go to Todos</Link>
+      </button>
       {error instanceof Error && <p>Error loading posts: {error.message}</p>}
       {data && (
         <div>
