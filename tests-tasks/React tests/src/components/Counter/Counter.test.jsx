@@ -22,7 +22,6 @@ describe(Counter, () => {
   });
   it("Mocking a child component", () => {
     vi.mock("./CounterChild", () => {
-      // console.log(1)
       const returnZero = vi.fn();
       const MockedCounterChild = () => {
         returnZero.mockImplementation(() => {});

@@ -7,18 +7,15 @@ function App() {
   const [toDoInputValue, setToDoInputValue] = useState<string>("");
 
   const handleAdding = () => {
-    console.log("Adding a new todo");
     setToDos([...toDos, toDoInputValue]);
     setToDoInputValue("");
   };
   const handleDeleting = (index: number) => {
-    console.log("Deleting a todo");
     setToDos(toDos.filter((_, i) => i !== index));
     setToDoInputValue("");
   };
 
   const handleEdit = (index: number) => {
-    console.log("Editing a todo");
     const newToDo = prompt("Edit your todo", toDos[index]);
     if (newToDo) {
       const newToDos = [...toDos];
@@ -44,10 +41,16 @@ function App() {
           <ul className='todo_list'>
             {toDos.map((todo, index) => (
               <li key={index} className='todo_item'>
-                <input type='checkbox' />
-                <p>{todo}</p>
-                <button onClick={() => handleEdit(index)}>Edit</button>
-                <button onClick={() => handleDeleting(index)}>Delete</button>
+                <span className='todo_checkbox_item'>
+                  <input type='checkbox' />
+                  <p>{todo}</p>
+                </span>
+                <span className='buttons_todo_item'>
+                  <button onClick={() => handleEdit(index)}>Edit</button>
+                  <button onClick={() => handleDeleting(index)}>
+                    Delete
+                  </button>{" "}
+                </span>
               </li>
             ))}
           </ul>

@@ -6,6 +6,7 @@ const logger: Middleware = (store) => (next) => (action) => {
   if (process.env.NODE_ENV === 'development') {
     console.log('Dispatching:', action);
   }
+
   const result = next(action);
   if (process.env.NODE_ENV === 'development') {
     console.log('Next state:', store.getState());

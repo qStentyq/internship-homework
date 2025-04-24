@@ -1,13 +1,14 @@
-import postReducer, { addPost, fetchPosts, initialState, Post } from '../../redux/features/posts/postSlice';
+import postReducer, {
+  addPost,
+  fetchPosts,
+  initialState,
+  Post,
+} from '../../redux/features/posts/postSlice';
 import { describe, it, expect } from 'vitest';
 
-
 describe('postSlice', () => {
-
-
-
   it('should handle addPost', () => {
-    const newPost : Post= {
+    const newPost: Post = {
       userId: 1,
       id: 101,
       title: 'Test Post',
@@ -41,7 +42,10 @@ describe('postSlice', () => {
   });
 
   it('should handle fetchPosts.rejected', () => {
-    const action = { type: fetchPosts.rejected.type, error: { message: 'Failed to fetch' } };
+    const action = {
+      type: fetchPosts.rejected.type,
+      error: { message: 'Failed to fetch' },
+    };
     const updatedState = postReducer(initialState, action);
 
     expect(updatedState.status).toBe('failed');
