@@ -9,11 +9,12 @@ import {
   selectAllPosts,
 } from './postSlice';
 import './Post.css';
+import { AppDispatch } from '../../store';
 
 export default function Post() {
   const [isLongPosts, setIsLongPosts] = useState(false);
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   const Allposts = useSelector(selectAllPosts);
   const longPosts = useSelector(getLongPosts);
@@ -50,7 +51,7 @@ export default function Post() {
 
   useEffect(() => {
     if (postsStatus === 'idle') {
-      //@ts-ignore
+      //TODO: FIX TS ERROR
       dispatch(fetchPosts());
     }
   }, [postsStatus, dispatch]);

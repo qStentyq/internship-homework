@@ -1,6 +1,6 @@
 import { configureStore, Middleware } from '@reduxjs/toolkit';
-import counterReducer from './components/Counter/counterSlice';
-import postReducer from './components/Posts/postSlice';
+import counterReducer from './modules/Counter/counterSlice';
+import postReducer from './modules/Posts/postSlice';
 
 const logger: Middleware = (store) => (next) => (action) => {
   if (process.env.NODE_ENV === 'development') {
