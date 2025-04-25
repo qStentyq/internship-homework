@@ -51,7 +51,6 @@ export default function Post() {
 
   useEffect(() => {
     if (postsStatus === 'idle') {
-      //TODO: FIX TS ERROR
       dispatch(fetchPosts());
     }
   }, [postsStatus, dispatch]);

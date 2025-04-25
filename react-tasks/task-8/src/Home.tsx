@@ -1,11 +1,7 @@
-
-import Photos from './components/Photos/Photos'
+import Photos from "./modules/Photos/Photos";
 
 function Home() {
-
-  return (
-    <Photos />
-  )
+  return <Photos />;
 }
 
-export default Home
+export default Home;

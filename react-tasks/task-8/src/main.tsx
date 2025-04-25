@@ -4,8 +4,8 @@ import { BrowserRouter, Routes, Route } from "react-router";
 import "./index.css";
 import Home from "./Home.tsx";
 import "./App.css";
-import Posts from "./components/Posts/Posts.tsx";
-import Todos from "./components/Todo/Todos.tsx";
+import Posts from "./modules/Posts/Posts.tsx";
+import Todos from "./modules/Todo/Todos.tsx";
 import { defaultPath } from "./constants.ts";
 
 createRoot(document.getElementById("root")!).render(

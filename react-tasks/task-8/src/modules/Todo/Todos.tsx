@@ -1,7 +1,7 @@
 import useFetchData from "../../hooks/useFetchData";
 import "./Todo.css";
-import NavButtons from "../NavButtons";
-import ContentLoading from "../Loading";
+import NavButtons from "../Reusable/NavButtons";
+import ContentLoading from "../Reusable/Loading";
 
 export default function Todos() {
   const { data, error } = useFetchData({

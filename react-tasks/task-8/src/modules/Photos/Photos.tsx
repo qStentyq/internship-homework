@@ -1,8 +1,8 @@
 import useFetchData from "../../hooks/useFetchData";
 import "./Photos.css";
 import { useState } from "react";
-import NavButtons from "../NavButtons";
-import ContentLoading from "../Loading";
+import NavButtons from "../Reusable/NavButtons";
+import ContentLoading from "../Reusable/Loading";
 
 export default function Photos() {
   const [curPage, setCurPage] = useState(1);

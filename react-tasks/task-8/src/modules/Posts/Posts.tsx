@@ -1,6 +1,6 @@
 import useFetchData from "../../hooks/useFetchData";
 import "./Posts.css";
-import NavButtons from "../NavButtons";
+import NavButtons from "../Reusable/NavButtons";
 
 export default function Posts() {
   const { data, error } = useFetchData({
