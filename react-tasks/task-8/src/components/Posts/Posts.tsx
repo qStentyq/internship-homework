@@ -22,7 +22,9 @@ export default function Posts() {
             }) => {
               return (
                 <div key={post.id} className='post'>
-                  <h3>{post.title}</h3>
+                  <h4>
+                    <h3>Post #{post.id}:</h3> {post.title}
+                  </h4>
                   <p>{post.body}</p>
                 </div>
               );

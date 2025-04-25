@@ -1,6 +1,7 @@
 import useFetchData from "../../hooks/useFetchData";
 import "./Todo.css";
 import NavButtons from "../NavButtons";
+import ContentLoading from "../Loading";
 
 export default function Todos() {
   const { data, error } = useFetchData({
@@ -16,21 +17,25 @@ export default function Todos() {
       <NavButtons />
       <div>Todos list (readonly)</div>
       <div>
-        {data.map(
-          (todo: {
-            userId: number;
-            id: number;
-            title: string;
-            completed: boolean;
-          }) => {
-            return (
-              <div key={todo.id} className='todo'>
-                <h3>{todo.id}</h3>
-                <h3>{todo.title}</h3>
-                <input type='checkbox' checked={todo.completed} />
-              </div>
-            );
-          }
+        {data ? (
+          data.map(
+            (todo: {
+              userId: number;
+              id: number;
+              title: string;
+              completed: boolean;
+            }) => {
+              return (
+                <div key={todo.id} className='todo'>
+                  <h3>{todo.id}</h3>
+                  <h3>{todo.title}</h3>
+                  <input type='checkbox' checked={todo.completed} />
+                </div>
+              );
+            }
+          )
+        ) : (
+          <ContentLoading />
         )}
       </div>
     </div>

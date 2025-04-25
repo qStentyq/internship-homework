@@ -1,3 +1,8 @@
+
+:root {
+    --yellow_main: #a6ca18
+}
+
 .photos_api_image {
     max-width: 80vw;
     max-height: 80vh
@@ -22,11 +27,14 @@ ul {
 }
 
 .page:hover {
-    background-color: #a6ca18;
+    background-color: var(--yellow_main);
+    color: black;
+    cursor: pointer;
 }
 
 .cur_page {
-    background-color: #a6ca18;
+    background-color: var(--yellow_main);
+    color: black;
 }
 .footer_nav {
     display: flex;
@@ -34,4 +42,11 @@ ul {
     align-items: center;
     justify-content: center;
     
+}
+
+input[type=number] {
+    width: 3em;
+    background-color: var(--yellow_main);
+    border: none;
+    outline: none;
 }
