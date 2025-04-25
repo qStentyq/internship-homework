@@ -13,5 +13,5 @@ Task 5 - Redux/RTK Tasks - done
 Task 6 - Angular Tasks - done
 
 
-[text](https://qstentyq.github.io/internship-homework/) - Access to deployed version of the repository
+[Click here to access to deployed version of the repository](https://qstentyq.github.io/internship-homework/) 
 
