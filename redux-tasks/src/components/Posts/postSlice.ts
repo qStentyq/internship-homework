@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '../../store/store';
+import { RootState } from '../../store';
 
 const POST_URL = 'https://jsonplaceholder.typicode.com/posts';
 
@@ -54,10 +54,13 @@ export const postSlice = createSlice({
   initialState,
   reducers: {
     addPost: (state, action: PayloadAction<Post>) => {
-      return {
-        ...state,
-        posts: [...state.posts, action.payload],
-      };
+      //Mutable update but it's actually immutable since state is WritableDraft and has immer to handle it
+      state.posts.push(action.payload);
+      //Immutable update, in our case the're simmilar because of immer
+      // return {
+      //   ...state,
+      //   posts: [...state.posts, action.payload],
+      // };
     },
   },
   extraReducers: (builder) => {

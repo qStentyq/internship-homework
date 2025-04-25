@@ -3,7 +3,7 @@ import postReducer, {
   fetchPosts,
   initialState,
   Post,
-} from '../../redux/features/posts/postSlice';
+} from './postSlice';
 import { describe, it, expect } from 'vitest';
 
 describe('postSlice', () => {

@@ -1,0 +1,32 @@
+.counter_wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.inc_input {
+    width: 4rem;
+}
+
+.card {
+    padding: 2em;
+    max-width: 400px;
+  }
+  
+
+.card > input, button {
+    margin: 5px;
+    padding: 5px;
+    width: 200px;
+}
+
+.card > input {
+    border: none;
+    max-width: 190px;
+}
+
+.count_text {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
