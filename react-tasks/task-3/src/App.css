@@ -5,8 +5,18 @@
   text-align: center;
 }
 
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
 .card {
   padding: 2em;
+}
+
+.container {
+  width: 700px;
 }
 
 input {
@@ -18,10 +28,6 @@ input {
 }
 
 .todo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
   padding: 1em;
   border-bottom: 1px solid #ccc;
 }
@@ -31,7 +37,7 @@ input {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
+  margin-bottom: 1.5rem;
 }
 
 
@@ -39,7 +45,6 @@ input {
   display: flex;
   flex-direction: column;
   align-items: flex-start; 
-  width: 100%;
 }
 
 .todo_item {
@@ -47,8 +52,10 @@ input {
   align-items: center;
   gap: 0.5em;
   justify-content: space-between;
-  width: 100%; 
-  margin-bottom: 0.5em;
+  /* width: min(100%, 700px); */
+  width: 700px;
+  margin: 0 auto;
+  margin-bottom: 0.7em;
 }
 
 
@@ -63,4 +70,13 @@ input {
 .todo_checkbox_item {
   display: flex;
   align-items: center;
+  white-space: nowrap;
 }
+
+.error_message {
+  color: red;
+  font-size: 1.3em;
+  /* margin-top: 0.5em; */
+}
+
+
