@@ -1,7 +1,7 @@
 import useFetchData from "../../hooks/useFetchData";
 import "./Photos.css";
 import { useState } from "react";
-import NavButtons from "../Reusable/NavButtons";
+// import NavButtons from "../Reusable/NavButtons";
 import ContentLoading from "../Reusable/Loading";
 
 export default function Photos() {
@@ -24,7 +24,7 @@ export default function Photos() {
   };
   return (
     <>
-      <NavButtons />
+      {/* <NavButtons /> */}
       <div className='photos'>
         <h1>Photo galery: </h1>
         {data ? (

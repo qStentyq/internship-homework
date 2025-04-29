@@ -1,6 +1,6 @@
 import useFetchData from "../../hooks/useFetchData";
 import "./Todo.css";
-import NavButtons from "../Reusable/NavButtons";
+// import NavButtons from "../Reusable/NavButtons";
 import ContentLoading from "../Reusable/Loading";
 
 export default function Todos() {
@@ -14,7 +14,7 @@ export default function Todos() {
   }
   return (
     <div>
-      <NavButtons />
+      {/* <NavButtons /> */}
       <div>Todos list (readonly)</div>
       <div>
         {data ? (

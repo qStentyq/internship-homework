@@ -1,19 +1,16 @@
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 function NavButtons() {
   return (
     <>
-      <button>
+      <div className='nav_container'>
         {" "}
-        <Link to={`/`}>Photos</Link>
-      </button>
-      <button>
-        {" "}
-        <Link to={`/posts`}>Posts</Link>{" "}
-      </button>
-      <button>
+        <Link to={`/`}>Photos</Link> <Link to={`/posts`}>Posts</Link>{" "}
         <Link to={`/todos`}>Todos</Link>
-      </button>
+      </div>
+      <div className='outlet_container'>
+        <Outlet />
+      </div>
     </>
   );
 }

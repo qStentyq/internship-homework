@@ -1,6 +1,6 @@
 import useFetchData from "../../hooks/useFetchData";
 import "./Posts.css";
-import NavButtons from "../Reusable/NavButtons";
+// import NavButtons from "../Reusable/NavButtons";
 
 export default function Posts() {
   const { data, error } = useFetchData({
@@ -9,7 +9,7 @@ export default function Posts() {
 
   return (
     <>
-      <NavButtons />
+      {/* <NavButtons /> */}
       {error instanceof Error && <p>Error loading posts: {error.message}</p>}
       {data && (
         <div>
