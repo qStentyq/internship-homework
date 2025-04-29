@@ -1,5 +1,5 @@
-import { ChangeEvent, useState } from "react"
-import "./App.css"
+import { ChangeEvent, useState } from "react";
+import "./App.css";
 
 function App() {
   const [toDos, setToDos] = useState<string[]>([]);
@@ -25,32 +25,34 @@ function App() {
     setToDoInputValue("");
   };
 
-  const handleEdit = (index: number, newToDo: string ) => {
-    // const newToDo = prompt("Edit your todo", toDos[index]);
-    // const newTodo = 
+  const handleEdit = (index: number, newToDo: string) => {
     if (newToDo) {
       const newToDos = [...toDos];
-      newToDos[index] = newToDo;
+      newToDos[index] = newToDo.slice(0, 50);
       setToDos(newToDos);
       setEditableValue([]);
-      setIsEditableMode(-1);
     }
+    setIsEditableMode(-1);
   };
 
   const handleOnChangeInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setErrorMessage("");
     const value = e.target.value;
-    if (value.length > 58) {
+    if (value.length > 50) {
       setErrorMessage("Max length of todo task text reached.");
       return;
     }
     setToDoInputValue(value);
-  }
+  };
 
-  const updateEditableValue = (e: ChangeEvent<HTMLInputElement>, index: number) => {
-    const updatedValues = [...editableValue]; updatedValues[index] = e.target.value; setEditableValue(updatedValues)
-  }
-
+  const updateEditableValue = (
+    e: ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    const updatedValues = [...editableValue];
+    updatedValues[index] = e.target.value;
+    setEditableValue(updatedValues);
+  };
 
   return (
     <>
@@ -59,38 +61,51 @@ function App() {
           <h1>ToDo List</h1>
           <div className='input_container'>
             <input
+              className='input_adding_todo'
               type='text'
               placeholder='Add a new todo'
               value={toDoInputValue}
               onChange={handleOnChangeInputValue}
-              
-              />
+            />
             <button onClick={handleAdding}>Add</button>
           </div>
-              {errorMessage && <p className='error_message'>{errorMessage}</p>}
+          {errorMessage && <p className='error_message'>{errorMessage}</p>}
           <ul className='todo_list'>
             {toDos.map((todo, index) => (
               <li key={index} className='todo_item'>
                 <div className='todo_checkbox_item'>
                   <input type='checkbox' />
                   {isEditableMode === index ? (
-                    <input type='text' value={editableValue[index] ? editableValue[index] : todo} onChange={(e) => updateEditableValue(e, index)} onBlur={() => handleEdit(index, editableValue[index])}
-                    onKeyDown={(e) => e.key === 'Enter' && handleEdit(index, editableValue[index])}/>
+                    <input
+                      type='text'
+                      autoFocus
+                      size={todo.length}
+                      value={editableValue[index] ? editableValue[index] : todo}
+                      onChange={(e) => updateEditableValue(e, index)}
+                      onKeyDown={(e) =>
+                        e.key === "Enter" &&
+                        handleEdit(index, editableValue[index])
+                      }
+                    />
                   ) : (
-                    <>
-                    {todo}
-                    </>
+                    <span>{todo}</span>
                   )}
                 </div>
                 <div className='buttons_todo_item'>
                   {isEditableMode === index ? (
-                    <button onClick={() => setIsEditableMode(-1)}>Cancel</button>
+                    <button
+                      onClick={() => handleEdit(index, editableValue[index])}>
+                      Save
+                    </button>
                   ) : (
-                    <button onClick={() => {setIsEditableMode( index); }}>Edit</button>) }
-                  
-                  <button onClick={() => handleDeleting(index)}>
-                    Delete
-                  </button>{" "}
+                    <button
+                      onClick={() => {
+                        setIsEditableMode(index);
+                      }}>
+                      Edit
+                    </button>
+                  )}
+                  <button onClick={() => handleDeleting(index)}>Delete</button>{" "}
                 </div>
               </li>
             ))}

@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import CurrencySelector from './components/CurrencySelector';
 import './App.css';
-import { debounce } from 'lodash';
 import { fetchDataFromApi } from './services/converterApi';
 import HistoryList from './components/HistoryList';
 import {
@@ -69,14 +68,9 @@ function App() {
     await fetchCurrency(toCurrency);
   };
 
-  const fromInputHandler = debounce((value) => {
-    // e.preventDefault();
-    setAmount(value);
-  }, 0);
-
   const handleInputChange = (e) => {
-    const value = e.target.value;
-    fromInputHandler(value);
+    e.preventDefault();
+    setAmount(e.target.value);
   };
 
   //FETCH CONCRETE CURRENCY
@@ -106,6 +100,7 @@ function App() {
         history[formattedDate] = dayData[currency];
       }
     }
+    console.log(history);
     setCurRateHistory(history);
   };
 

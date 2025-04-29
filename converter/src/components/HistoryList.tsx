@@ -1,5 +1,11 @@
 import React from 'react';
-function HistoryList({ history, amount, toCurrency }) {
+
+interface HistoryParams {
+  history: object;
+  amount: number;
+  toCurrency: string;
+}
+function HistoryList({ history, amount, toCurrency }: HistoryParams) {
   return (
     <div className='history-list'>
       {Object.entries(history).map(([date, rate]) => (
