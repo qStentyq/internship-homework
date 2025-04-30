@@ -1,8 +1,7 @@
 import useFetchData from "../../hooks/useFetchData";
 import "./Photos.css";
 import { useState } from "react";
-// import NavButtons from "../Reusable/NavButtons";
-import ContentLoading from "../Reusable/Loading";
+import ContentLoading from "../Reusable/ContentLoading";
 
 export default function Photos() {
   const [curPage, setCurPage] = useState(1);
@@ -13,6 +12,7 @@ export default function Photos() {
     dataResource: `https://picsum.photos/v2/list?page=${curPage}&limit=10`,
   });
   const preprevPage = curPage - 2;
+  // console.debug(data);
 
   const handlePageChange = (index: number) => {
     const isCurPage = curPage === preprevPage + index;
@@ -24,10 +24,9 @@ export default function Photos() {
   };
   return (
     <>
-      {/* <NavButtons /> */}
       <div className='photos'>
         <h1>Photo galery: </h1>
-        {data ? (
+        {data.length > 0 ? (
           data.map(
             (photo: {
               id: number;
@@ -67,6 +66,7 @@ export default function Photos() {
             {Array.from({ length: 5 }, (_, i) =>
               preprevPage + i > 0 && preprevPage + i <= 100 ? (
                 <li
+                  key={i}
                   className={`page ${
                     curPage === preprevPage + i ? "cur_page" : ""
                   }`}

@@ -1,4 +1,6 @@
 import useFetchData from "../../hooks/useFetchData";
+import ContentLoading from "../Reusable/ContentLoading";
+
 import "./Posts.css";
 // import NavButtons from "../Reusable/NavButtons";
 
@@ -11,7 +13,7 @@ export default function Posts() {
     <>
       {/* <NavButtons /> */}
       {error instanceof Error && <p>Error loading posts: {error.message}</p>}
-      {data && (
+      {data.length > 0 ? (
         <div>
           {data.map(
             (post: {
@@ -22,15 +24,17 @@ export default function Posts() {
             }) => {
               return (
                 <div key={post.id} className='post'>
-                  <h4>
-                    <h3>Post #{post.id}:</h3> {post.title}
-                  </h4>
+                  <h3>
+                    <p>Post #{post.id}:</p> {post.title}
+                  </h3>
                   <p>{post.body}</p>
                 </div>
               );
             }
           )}
         </div>
+      ) : (
+        <ContentLoading />
       )}
     </>
   );

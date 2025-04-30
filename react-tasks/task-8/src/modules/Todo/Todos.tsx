@@ -1,7 +1,7 @@
 import useFetchData from "../../hooks/useFetchData";
 import "./Todo.css";
 // import NavButtons from "../Reusable/NavButtons";
-import ContentLoading from "../Reusable/Loading";
+import ContentLoading from "../Reusable/ContentLoading";
 
 export default function Todos() {
   const { data, error } = useFetchData({
@@ -17,7 +17,7 @@ export default function Todos() {
       {/* <NavButtons /> */}
       <div>Todos list (readonly)</div>
       <div>
-        {data ? (
+        {data.length > 0 ? (
           data.map(
             (todo: {
               userId: number;
