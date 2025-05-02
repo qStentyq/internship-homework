@@ -2,6 +2,7 @@
   max-width: 1280px;
   margin: 0 auto;
   text-align: center;
+  box-sizing: border-box;
 }
 
 ul {
@@ -41,12 +42,15 @@ input {
   justify-content: space-between;
   width: 700px;
   margin-bottom: 1em;
+  font-size: 14px;
+  gap: 8px;
 }
 
 
 .todo_list {
   display: flex;
   flex-direction: column;
+  width: inherit;
   align-items: flex-start; 
 }
 
@@ -56,7 +60,7 @@ input {
   gap: 0.5em;
   justify-content: space-between;
   /* width: min(100%, 700px); */
-  width: 700px;
+  width: 707px;
   margin: 0 auto;
   margin-bottom: 0.7em;
 }
@@ -67,7 +71,16 @@ input {
 }
 
 .buttons_todo_item > button{
-  margin-right: 5px;
+  border-radius: 0px;
+}
+
+.buttons_todo_item > button:hover {
+  animation: hoveranim 0.5s cubic-bezier(0.44, 0, 0.45, 1.02) forwards;
+}
+
+@keyframes hoveranim {
+  0% { background-color: black; color: white; }
+  100% { background-color: white; color: black; }
 }
 
 .todo_checkbox_item {
@@ -75,12 +88,28 @@ input {
   align-items: center;
   white-space: nowrap;
   gap: 8px;
+
 }
 
 .error_message {
-
   color: red;
   font-size: 1.3em;
+}
+
+.priority_style_1 {
+  background-color: red;
+}
+.priority_style_2 {
+  background-color: rgb(225, 140, 20);
+}
+.priority_style_3 {
+  background-color: rgb(0, 145, 255);
+}
+.priority_style_4 {
+  background-color: rgb(164, 211, 63);
+}
+.priority_style_5 {
+  background-color: rgb(26, 194, 4);
 }
 
 
