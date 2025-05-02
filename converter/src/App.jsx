@@ -11,7 +11,7 @@ import {
 
 function App() {
   const [apiData, setApiData] = useState(null);
-  const [curRateHistory, setCurRateHistory] = useState({});
+  const [curRateHistory, setCurRateHistory] = useState(null);
   const [fromCurrency, setFromCurrency] = useState(DEFAULT_FROM_CURRENCY);
   const [toCurrency, setToCurrency] = useState(DEFAULT_TO_CURRENCY);
   const [rates, setRates] = useState(null);
