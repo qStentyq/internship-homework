@@ -17,7 +17,7 @@ const ROUTES = {
 export default function Home() {
   return (
     <>
-      <div className='text-center text-3xl flex justify-center items-center h-screen flex-col max-w-7xl mx-auto'>
+      <div className='text-center text-3xl flex justify-center items-center h-screen flex-col max-w-7xl mx-auto p-20 gap-10'>
         <p className='text-pink-600 bold '>
           {" "}
           Welcome to the blog! In this app we gonna learn how to use
@@ -28,15 +28,15 @@ export default function Home() {
             <Link to={ROUTES.ABOUT} className='text-green-500 hover:underline'>
               About
             </Link>{" "}
-            - In this section you can find information about me.. and some
-            contacts too
+            - In this section you can find information and some contacts about
+            me
           </li>
           <li>
             <Link to={ROUTES.POSTS} className='text-purple-500 hover:underline'>
               Posts
             </Link>{" "}
             - This section has several posts to demonstrate how routing by id
-            works
+            works [not in deployed version thanks to GitHub pages <i>:(</i> ]
           </li>
           <li>
             <Link to={ROUTES.HOME} className='text-blue-500 hover:underline'>
